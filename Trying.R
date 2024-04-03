@@ -10,3 +10,12 @@ summary(fitted.model <- glm(worsen ~ gender.rel + group.rel + dementia.rel + off
 alzheimers.data$duration <-rep(1000,12)
 pred.cases <- predict(fitted.model, alzheimers.data, type = "response")
 sort(pred.cases, decreasing = TRUE)
+
+
+gss_cat %>% 
+  group_by(rincome) %>% 
+  summarise(
+    avg_age = round(mean(age, na.rm = T),1) 
+  ) %>% 
+  ggplot(aes(x=avg_age, y=fct_relevel(rincome, "Not applicable"))) + 
+  geom_point()
